@@ -1,0 +1,110 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20201118162220_202011181321.cs" />
+    <Compile Remove="Migrations\20201118162220_202011181321.Designer.cs" />
+    <Compile Remove="Migrations\20201119104621_202011190745.cs" />
+    <Compile Remove="Migrations\20201119104621_202011190745.Designer.cs" />
+    <Compile Remove="Migrations\20201210131211_202012101011.cs" />
+    <Compile Remove="Migrations\20201210131211_202012101011.Designer.cs" />
+    <Compile Remove="Migrations\20210129124238_202101290934.cs" />
+    <Compile Remove="Migrations\20210129124238_202101290934.Designer.cs" />
+    <Compile Remove="Migrations\20210202185308_202102021552.cs" />
+    <Compile Remove="Migrations\20210202185308_202102021552.Designer.cs" />
+    <Compile Remove="Migrations\20210202190946_202102021609.cs" />
+    <Compile Remove="Migrations\20210202190946_202102021609.Designer.cs" />
+    <Compile Remove="Migrations\20210202191754_202102021609.cs" />
+    <Compile Remove="Migrations\20210202191754_202102021609.Designer.cs" />
+    <Compile Remove="Migrations\20210202192507_202102021624.cs" />
+    <Compile Remove="Migrations\20210202192507_202102021624.Designer.cs" />
+    <Compile Remove="Migrations\20210202194242_202102021642.cs" />
+    <Compile Remove="Migrations\20210202194242_202102021642.Designer.cs" />
+    <Compile Remove="Migrations\20210202194351_202102021642.cs" />
+    <Compile Remove="Migrations\20210202194351_202102021642.Designer.cs" />
+    <Compile Remove="Migrations\20210203215012_202102031849.cs" />
+    <Compile Remove="Migrations\20210203215012_202102031849.Designer.cs" />
+    <Compile Remove="Migrations\20210203231533_202102032015.cs" />
+    <Compile Remove="Migrations\20210203231533_202102032015.Designer.cs" />
+    <Compile Remove="Migrations\20210203232519_202102032015.cs" />
+    <Compile Remove="Migrations\20210203232519_202102032015.Designer.cs" />
+    <Compile Remove="Migrations\20210203234701_202102032046.cs" />
+    <Compile Remove="Migrations\20210203234701_202102032046.Designer.cs" />
+    <Compile Remove="Migrations\20210203235016_202102032046.cs" />
+    <Compile Remove="Migrations\20210203235016_202102032046.Designer.cs" />
+    <Compile Remove="Migrations\20210204001838_202102032046.cs" />
+    <Compile Remove="Migrations\20210204001838_202102032046.Designer.cs" />
+    <Compile Remove="Migrations\20210204003031_202102032131.cs" />
+    <Compile Remove="Migrations\20210204003031_202102032131.Designer.cs" />
+    <Compile Remove="Migrations\20210204003906_202102032140.cs" />
+    <Compile Remove="Migrations\20210204003906_202102032140.Designer.cs" />
+    <Compile Remove="Migrations\20210218185503_202102181555.cs" />
+    <Compile Remove="Migrations\20210218185503_202102181555.Designer.cs" />
+    <Compile Remove="Migrations\20210304211135_202103041807.cs" />
+    <Compile Remove="Migrations\20210304211135_202103041807.Designer.cs" />
+    <Compile Remove="Migrations\20210305141902_202103041118.cs" />
+    <Compile Remove="Migrations\20210305141902_202103041118.Designer.cs" />
+    <Compile Remove="Migrations\20210308175834_202103081451.cs" />
+    <Compile Remove="Migrations\20210308175834_202103081451.Designer.cs" />
+    <Compile Remove="Migrations\20210308194758_202103081647.cs" />
+    <Compile Remove="Migrations\20210308194758_202103081647.Designer.cs" />
+    <Compile Remove="Migrations\20210309183705_202103091535.cs" />
+    <Compile Remove="Migrations\20210309183705_202103091535.Designer.cs" />
+    <Compile Remove="Migrations\20210309184040_202103091535.cs" />
+    <Compile Remove="Migrations\20210309184040_202103091535.Designer.cs" />
+    <Compile Remove="Migrations\20210309184525_202103091535.cs" />
+    <Compile Remove="Migrations\20210309184525_202103091535.Designer.cs" />
+    <Compile Remove="Migrations\20210309185138_202103091535.cs" />
+    <Compile Remove="Migrations\20210309185138_202103091535.Designer.cs" />
+    <Compile Remove="Migrations\20210309185826_202103091535.cs" />
+    <Compile Remove="Migrations\20210309185826_202103091535.Designer.cs" />
+    <Compile Remove="Migrations\20210309191150_202103091535.cs" />
+    <Compile Remove="Migrations\20210309191150_202103091535.Designer.cs" />
+    <Compile Remove="Migrations\20210309191951_202103091620.cs" />
+    <Compile Remove="Migrations\20210309191951_202103091620.Designer.cs" />
+    <Compile Remove="Migrations\20210309192509_202103091620.cs" />
+    <Compile Remove="Migrations\20210309192509_202103091620.Designer.cs" />
+    <Compile Remove="Migrations\20210504214946_202105041846.cs" />
+    <Compile Remove="Migrations\20210504214946_202105041846.Designer.cs" />
+    <Compile Remove="Migrations\20210511225749_202105112000.cs" />
+    <Compile Remove="Migrations\20210511225749_202105112000.Designer.cs" />
+    <Compile Remove="Migrations\20210706214019_202107061840.cs" />
+    <Compile Remove="Migrations\20210706214019_202107061840.Designer.cs" />
+    <Compile Remove="Migrations\20210706222238_202107061840.cs" />
+    <Compile Remove="Migrations\20210706222238_202107061840.Designer.cs" />
+    <Compile Remove="Migrations\20210706222523_202107061840.cs" />
+    <Compile Remove="Migrations\20210706222523_202107061840.Designer.cs" />
+    <Compile Remove="Migrations\20210706223219_202107061840.cs" />
+    <Compile Remove="Migrations\20210706223219_202107061840.Designer.cs" />
+    <Compile Remove="Migrations\20210706223628_202107061840.cs" />
+    <Compile Remove="Migrations\20210706223628_202107061840.Designer.cs" />
+    <Compile Remove="Migrations\20210707124239_20210707.cs" />
+    <Compile Remove="Migrations\20210707124239_20210707.Designer.cs" />
+    <Compile Remove="Migrations\20210729120358_202107290900.cs" />
+    <Compile Remove="Migrations\20210729120358_202107290900.Designer.cs" />
+    <Compile Remove="Migrations\20210729125037_202107290900.cs" />
+    <Compile Remove="Migrations\20210729125037_202107290900.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.9">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MsGestao.Domain\Locadora.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

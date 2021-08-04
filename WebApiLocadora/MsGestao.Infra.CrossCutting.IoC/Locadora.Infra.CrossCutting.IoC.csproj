@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore" Version="4.9.2" />
+    <PackageReference Include="SimpleInjector.Integration.AspNetCore.Mvc.Core" Version="4.9.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\src\MsGestao.Application\Locadora.Application.csproj" />
+    <ProjectReference Include="..\src\MsGestao.Domain\Locadora.Domain.csproj" />
+    <ProjectReference Include="..\src\MsGestao.Infra.Data\Locadora.Infra.Data.csproj" />
+  </ItemGroup>
+
+</Project>
