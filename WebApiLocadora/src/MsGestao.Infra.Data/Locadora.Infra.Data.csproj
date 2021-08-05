@@ -87,6 +87,10 @@
     <Compile Remove="Migrations\20210729120358_202107290900.Designer.cs" />
     <Compile Remove="Migrations\20210729125037_202107290900.cs" />
     <Compile Remove="Migrations\20210729125037_202107290900.Designer.cs" />
+    <Compile Remove="Migrations\20210804230711_202108042001.cs" />
+    <Compile Remove="Migrations\20210804230711_202108042001.Designer.cs" />
+    <Compile Remove="Migrations\20210804231511_202108042001.cs" />
+    <Compile Remove="Migrations\20210804231511_202108042001.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -105,6 +109,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MsGestao.Domain\Locadora.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

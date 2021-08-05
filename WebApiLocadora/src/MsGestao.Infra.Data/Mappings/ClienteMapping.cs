@@ -17,31 +17,38 @@ namespace Locadora.Infra.Data.Mappings
 
             builder.Property(p => p.CPF)
                 .IsRequired()
-                .HasMaxLength(11);
+                .HasMaxLength(11)
+                .IsUnicode(false);
 
             builder.Property(p => p.Email)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(100)
+                .IsUnicode(false);
 
             builder.Property(p => p.Cep)
                 .IsRequired()
-                .HasMaxLength(8);
+                .HasMaxLength(8)
+                .IsUnicode(false);
 
             builder.Property(p => p.Logradouro)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(100)
+                .IsUnicode(false);
 
             builder.Property(p => p.Cidade)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(100)
+                .IsUnicode(false);
 
             builder.Property(p => p.Estado)
                 .IsRequired()
-                .HasMaxLength(2);
+                .HasMaxLength(2)
+                .IsUnicode(false);
 
             builder.Property(p => p.Complemento)
                 .IsRequired()
-                .HasMaxLength(100);
+                .HasMaxLength(100)
+                .IsUnicode(false);
         }
     }
 }

@@ -8,7 +8,6 @@ namespace Locadora.Application.ViewModels
         [Key]
         public Guid Id { get; set; }
         
-        [Required(ErrorMessage = "O campo {0} deve ser preenchido")]
         public Guid LocacaoId { get; set; }
 
         [Required(ErrorMessage = "O campo {0} deve ser preenchido")]

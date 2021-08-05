@@ -3,22 +3,30 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Locadora.Infra.Data.Migrations
 {
-    public partial class _20210804 : Migration
+    public partial class _202108042001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropSequence(
-                name: "SequencialNumeroDaReserva");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Nome",
-                table: "Clientes",
-                unicode: false,
-                maxLength: 100,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(100)",
-                oldMaxLength: 100);
+            migrationBuilder.CreateTable(
+                name: "Clientes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Ativo = table.Column<bool>(nullable: false),
+                    Nome = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
+                    CPF = table.Column<string>(unicode: false, maxLength: 11, nullable: false),
+                    Email = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
+                    Cep = table.Column<string>(unicode: false, maxLength: 8, nullable: false),
+                    Logradouro = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
+                    Numero = table.Column<int>(nullable: false),
+                    Cidade = table.Column<string>(unicode: false, maxLength: 100, nullable: false),
+                    Estado = table.Column<string>(unicode: false, maxLength: 2, nullable: false),
+                    Complemento = table.Column<string>(unicode: false, maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Clientes", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Locacoes",
@@ -30,7 +38,7 @@ namespace Locadora.Infra.Data.Migrations
                     DataLiberacao = table.Column<DateTime>(nullable: false),
                     DataEntrega = table.Column<DateTime>(nullable: false),
                     ValorTotal = table.Column<double>(nullable: false),
-                    Status = table.Column<int>(nullable: false)
+                    Status = table.Column<int>(nullable: false, defaultValue: 10)
                 },
                 constraints: table =>
                 {
@@ -62,18 +70,17 @@ namespace Locadora.Infra.Data.Migrations
                     Valor = table.Column<double>(nullable: false),
                     Quantidade = table.Column<int>(nullable: false),
                     QuantidadeDisponivel = table.Column<int>(nullable: false),
-                    MidiaId = table.Column<int>(nullable: false),
-                    MidiaId1 = table.Column<Guid>(nullable: true)
+                    MidiaId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Produtos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produtos_Midias_MidiaId1",
-                        column: x => x.MidiaId1,
+                        name: "FK_Produtos_Midias_MidiaId",
+                        column: x => x.MidiaId,
                         principalTable: "Midias",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -113,13 +120,16 @@ namespace Locadora.Infra.Data.Migrations
                 column: "ProdutoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produtos_MidiaId1",
+                name: "IX_Produtos_MidiaId",
                 table: "Produtos",
-                column: "MidiaId1");
+                column: "MidiaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Clientes");
+
             migrationBuilder.DropTable(
                 name: "ItemsLocacao");
 
@@ -131,20 +141,6 @@ namespace Locadora.Infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Midias");
-
-            migrationBuilder.CreateSequence<int>(
-                name: "SequencialNumeroDaReserva",
-                startValue: 0L);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Nome",
-                table: "Clientes",
-                type: "nvarchar(100)",
-                maxLength: 100,
-                nullable: false,
-                oldClrType: typeof(string),
-                oldUnicode: false,
-                oldMaxLength: 100);
         }
     }
 }

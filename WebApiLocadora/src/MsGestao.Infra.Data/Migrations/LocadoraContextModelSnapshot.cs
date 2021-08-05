@@ -30,38 +30,45 @@ namespace Locadora.Infra.Data.Migrations
 
                     b.Property<string>("CPF")
                         .IsRequired()
-                        .HasColumnType("nvarchar(11)")
-                        .HasMaxLength(11);
+                        .HasColumnType("varchar(11)")
+                        .HasMaxLength(11)
+                        .IsUnicode(false);
 
                     b.Property<string>("Cep")
                         .IsRequired()
-                        .HasColumnType("nvarchar(8)")
-                        .HasMaxLength(8);
+                        .HasColumnType("varchar(8)")
+                        .HasMaxLength(8)
+                        .IsUnicode(false);
 
                     b.Property<string>("Cidade")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100)
+                        .IsUnicode(false);
 
                     b.Property<string>("Complemento")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100)
+                        .IsUnicode(false);
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100)
+                        .IsUnicode(false);
 
                     b.Property<string>("Estado")
                         .IsRequired()
-                        .HasColumnType("nvarchar(2)")
-                        .HasMaxLength(2);
+                        .HasColumnType("varchar(2)")
+                        .HasMaxLength(2)
+                        .IsUnicode(false);
 
                     b.Property<string>("Logradouro")
                         .IsRequired()
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
+                        .HasColumnType("varchar(100)")
+                        .HasMaxLength(100)
+                        .IsUnicode(false);
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -120,7 +127,9 @@ namespace Locadora.Infra.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(10);
 
                     b.Property<double>("ValorTotal")
                         .HasColumnType("float");
@@ -164,10 +173,7 @@ namespace Locadora.Infra.Data.Migrations
                     b.Property<DateTime>("DataLancamento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MidiaId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("MidiaId1")
+                    b.Property<Guid>("MidiaId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome")
@@ -187,7 +193,7 @@ namespace Locadora.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MidiaId1");
+                    b.HasIndex("MidiaId");
 
                     b.ToTable("Produtos");
                 });
@@ -211,7 +217,9 @@ namespace Locadora.Infra.Data.Migrations
                 {
                     b.HasOne("Locadora.Domain.Models.Midia", "Midia")
                         .WithMany()
-                        .HasForeignKey("MidiaId1");
+                        .HasForeignKey("MidiaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
-﻿using Locadora.Domain.Models;
+﻿using Locadora.Domain.Enum;
+using Locadora.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -17,6 +18,11 @@ namespace Locadora.Infra.Data.Mappings
                 .IsRequired();
 
             builder.Property(p => p.Status)
+                .IsRequired();
+
+            builder.Property(p => p.Status)
+                .HasConversion<int>()
+                .HasDefaultValue(StatusDaVenda.AguardandoLiberacao)
                 .IsRequired();
         }
     }

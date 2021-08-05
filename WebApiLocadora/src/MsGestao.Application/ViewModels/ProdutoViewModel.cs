@@ -24,7 +24,7 @@ namespace Locadora.Application.ViewModels
         public int QuantidadeDisponivel { get; set; }
         
         [Required(ErrorMessage = "O campo {0} deve ser preenchido")]
-        public int MidiaId { get; set; }
+        public Guid MidiaId { get; set; }
         
         public Boolean Ativo { get; set; }
     }

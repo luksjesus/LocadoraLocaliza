@@ -18,7 +18,7 @@ namespace Locadora.Application.ViewModels
         [Range(0, Double.PositiveInfinity, ErrorMessage = "Valor total da locação deve ser maior que 0")]
         public Double ValorTotal { get; set; }
 
-        [Range(0, 5, ErrorMessage = "O status da venda é invalido")]
+        [Range(10, 30, ErrorMessage = "O status da venda é invalido")]
         public int Status { get; set; }
         
         public Boolean Ativo { get; set; }

@@ -10,7 +10,7 @@ namespace Locadora.Domain.Models
 
         public int Quantidade { get; set; }
         public int QuantidadeDisponivel { get; set; }
-        public int MidiaId { get; set; }
+        public Guid MidiaId { get; set; }
 
         //---> Propriedade de navegação
         //
