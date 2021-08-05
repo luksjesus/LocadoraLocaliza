@@ -8,7 +8,7 @@ namespace Locadora.Domain.Validations
         public ClienteValidation()
         {
             RuleFor(f => f.Nome)
-                .NotEmpty().WithMessage("O campo {PropertyName} deve ser preenchido")
+                .NotEmpty().WithMessage("O campo {PropertyName} deve ser preenchido xxxxxxx")
                 .Length(3, 100)
                 .WithMessage("O campo {PropertyName} deve ter entre {MinLength} e {MaxLength} caracteres");
 

@@ -1,5 +1,4 @@
 ﻿using Locadora.Domain.Notificador;
-//using Locadora.Domain.Notificador;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Linq;
