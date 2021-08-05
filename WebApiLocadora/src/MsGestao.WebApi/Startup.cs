@@ -1,4 +1,4 @@
-using AutoMapper;
+Ôªøusing AutoMapper;
 using Locadora.Application.AutoMapper;
 using Locadora.Infra.CrossCutting.IoC.Classes;
 using Locadora.Infra.Data.Context;
@@ -11,26 +11,21 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using SimpleInjector;
 
 namespace Locadora.WebApi
 {
     public class Startup
     {
-        private IConfiguration Configuration { get; }
-        // private Container _containerIoC = new SimpleInjector.Container();
-        // private static readonly ILoggerFactory _logger = LoggerFactory.Create(p => p.AddConsole());
+        private IConfiguration Configuration { get; }          
 
         public Startup(IConfiguration configuration)
         {
-            //---> Set to false. This will be the default in v5.x and going forward.
-            //
-            //_containerIoC.Options.ResolveUnregisteredConcreteTypes = false;
-
             Configuration = configuration;
         }
 
-        //---> This method gets called by the runtime. Use this method to add services to the container.
+        
         public void ConfigureServices(IServiceCollection services)
         {
 
@@ -39,15 +34,15 @@ namespace Locadora.WebApi
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            //---> Incluindo o serviÁo CORS
+            //---> Incluindo o servi√ßo CORS
             //
             services.AddCors();
 
-            // ---> Incluindo configuraÁıes do Identity
+            // ---> Incluindo configura√ß√µes do Identity
             //
             services.AddIdentityConfiguration(Configuration);
 
-            //---> Padr„o web api e usando Pascal case
+            //---> Padr√£o web api e usando Pascal case
             //
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore          
@@ -62,75 +57,30 @@ namespace Locadora.WebApi
 
             services.AddSingleton<IMapper>(sp => _mapperConfiguration.CreateMapper());
 
-            //---> Adicionando Context para conex„o com o banco de dados.
-            //
-            //.UseLoggerFactory(_logger).EnableSensitiveDataLogging()
+            services.AddSwaggerGen(c =>
+            {
+              c.SwaggerDoc("v1", new OpenApiInfo { Title = "api", Version = "v1" });
+            });
+            
             services.AddDbContext<LocadoraContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("LocadoraConnectionDev")));
 
-
-            /*
-            #if DEBUG
-            services.AddDbContext<LocadoraContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocadoraConnectionDev")).UseLoggerFactory(_logger).EnableSensitiveDataLogging()
-                );
-            #else
-                services.AddDbContext<LocadoraContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("LocadoraConnection")));
-            #endif
-            */
-
-
-
-
-
-            //---> Adicionando SimpleInjector
-            //
-            SimpleInjectionBootstrapper.Register(services);
-            /*
-            services.AddSimpleInjector(_containerIoC, options =>
-            {
-                // AddAspNetCore() wraps web requests in a Simple Injector scope and
-                // allows request-scoped framework services to be resolved.
-                options.AddAspNetCore()
-
-                    // Ensure activation of a specific framework type to be created by
-                    // Simple Injector instead of the built-in configuration system.
-                    // All calls are optional. You can enable what you need. For instance,
-                    // PageModels and TagHelpers are not needed when you build a Web API.
-                    .AddControllerActivation()
-                    .AddViewComponentActivation();
-                    //.AddPageModelActivation()
-                    //.AddTagHelperActivation();
-
-                // Optionally, allow application components to depend on the non-generic
-                // ILogger (Microsoft.Extensions.Logging) or IStringLocalizer
-                // (Microsoft.Extensions.Localization) abstractions.
-                options.AddLogging();
-                //options.AddLocalization();
-            });
-            */
-
-            //---> Registrando Classes no SimpleInjector
-            //
-            // SimpleInjectionBootstrapper.Register(_containerIoC);
+            SimpleInjectionBootstrapper.Register(services);           
         }
 
         //---> This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         //
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            //---> UseSimpleInjector() finalizes the integration process.
-            //
-            //app.UseSimpleInjector(_containerIoC);
+          
+            if (env.IsDevelopment())
+            {
+              app.UseDeveloperExceptionPage();
+            }
 
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-                        
-            //---> middleware de roteamento
-            //
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "api v1"));
+
             app.UseRouting();
 
             //---> Configura o CORS
@@ -142,11 +92,11 @@ namespace Locadora.WebApi
                                     .AllowAnyMethod()
                                     .AllowAnyHeader());
 
-            //---> habilita a autenticaÁ„o.
+            //---> habilita a autentica√ß√£o.
             //
             app.UseAuthentication();
 
-            //---> middleware que habilita a autorizaÁ„o
+            //---> middleware que habilita a autoriza√ß√£o
             //
             //app.UseAuthorization();
 

@@ -33,9 +33,7 @@ namespace Locadora.Application.ViewModels
         [Required(ErrorMessage = "O campo {0} deve ser preenchido")]
         public string Estado { get; set; }
         public string Complemento { get; set; }
-      
-       
-        
+
         public Boolean Ativo { get; set; }
     }
 }

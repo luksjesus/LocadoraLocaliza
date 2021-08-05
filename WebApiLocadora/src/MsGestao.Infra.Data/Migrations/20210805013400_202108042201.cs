@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Locadora.Infra.Data.Migrations
 {
-    public partial class _202108042001 : Migration
+    public partial class _202108042201 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,23 +29,6 @@ namespace Locadora.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Locacoes",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Ativo = table.Column<bool>(nullable: false),
-                    DataCadastro = table.Column<DateTime>(nullable: false),
-                    DataLiberacao = table.Column<DateTime>(nullable: false),
-                    DataEntrega = table.Column<DateTime>(nullable: false),
-                    ValorTotal = table.Column<double>(nullable: false),
-                    Status = table.Column<int>(nullable: false, defaultValue: 10)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Locacoes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Midias",
                 columns: table => new
                 {
@@ -60,6 +43,32 @@ namespace Locadora.Infra.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Locacoes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Ativo = table.Column<bool>(nullable: false),
+                    DataCadastro = table.Column<DateTime>(nullable: false),
+                    DataLiberacao = table.Column<DateTime>(nullable: false),
+                    DataPrevisaoEntrega = table.Column<DateTime>(nullable: false),
+                    DataEntrega = table.Column<DateTime>(nullable: false),
+                    Valor = table.Column<double>(nullable: false),
+                    Multa = table.Column<double>(nullable: false),
+                    Status = table.Column<int>(nullable: false, defaultValue: 10),
+                    ClienteId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Locacoes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Locacoes_Clientes_ClienteId",
+                        column: x => x.ClienteId,
+                        principalTable: "Clientes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Produtos",
                 columns: table => new
                 {
@@ -70,7 +79,8 @@ namespace Locadora.Infra.Data.Migrations
                     Valor = table.Column<double>(nullable: false),
                     Quantidade = table.Column<int>(nullable: false),
                     QuantidadeDisponivel = table.Column<int>(nullable: false),
-                    MidiaId = table.Column<Guid>(nullable: false)
+                    MidiaId = table.Column<Guid>(nullable: false),
+                    TipoDeProduto = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,6 +130,11 @@ namespace Locadora.Infra.Data.Migrations
                 column: "ProdutoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Locacoes_ClienteId",
+                table: "Locacoes",
+                column: "ClienteId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Produtos_MidiaId",
                 table: "Produtos",
                 column: "MidiaId");
@@ -128,9 +143,6 @@ namespace Locadora.Infra.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Clientes");
-
-            migrationBuilder.DropTable(
                 name: "ItemsLocacao");
 
             migrationBuilder.DropTable(
@@ -138,6 +150,9 @@ namespace Locadora.Infra.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Produtos");
+
+            migrationBuilder.DropTable(
+                name: "Clientes");
 
             migrationBuilder.DropTable(
                 name: "Midias");

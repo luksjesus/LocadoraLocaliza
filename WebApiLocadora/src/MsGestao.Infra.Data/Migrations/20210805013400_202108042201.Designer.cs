@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Locadora.Infra.Data.Migrations
 {
     [DbContext(typeof(LocadoraContext))]
-    [Migration("20210804231807_202108042001")]
-    partial class _202108042001
+    [Migration("20210805013400_202108042201")]
+    partial class _202108042201
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -119,6 +119,9 @@ namespace Locadora.Infra.Data.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
 
@@ -128,15 +131,23 @@ namespace Locadora.Infra.Data.Migrations
                     b.Property<DateTime>("DataLiberacao")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("DataPrevisaoEntrega")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Multa")
+                        .HasColumnType("float");
+
                     b.Property<int>("Status")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasDefaultValue(10);
 
-                    b.Property<double>("ValorTotal")
+                    b.Property<double>("Valor")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
 
                     b.ToTable("Locacoes");
                 });
@@ -190,6 +201,9 @@ namespace Locadora.Infra.Data.Migrations
                     b.Property<int>("QuantidadeDisponivel")
                         .HasColumnType("int");
 
+                    b.Property<int>("TipoDeProduto")
+                        .HasColumnType("int");
+
                     b.Property<double>("Valor")
                         .HasColumnType("float");
 
@@ -211,6 +225,15 @@ namespace Locadora.Infra.Data.Migrations
                     b.HasOne("Locadora.Domain.Models.Produto", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Locadora.Domain.Models.Locacao", b =>
+                {
+                    b.HasOne("Locadora.Domain.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

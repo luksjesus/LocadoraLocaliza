@@ -10,7 +10,7 @@ namespace Locadora.Domain.Validations
             RuleFor(f => f.DataCadastro)
                .NotNull().WithMessage("O campo {PropertyName} deve ser preenchido");
 
-            RuleFor(f => f.ValorTotal)
+            RuleFor(f => f.Valor)
                 .GreaterThanOrEqualTo(0).WithMessage("O campo {PropertyName} deve ser maior ou igual a 0");
 
             RuleFor(f => f.Status)

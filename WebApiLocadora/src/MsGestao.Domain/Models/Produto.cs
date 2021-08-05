@@ -11,9 +11,12 @@ namespace Locadora.Domain.Models
         public int Quantidade { get; set; }
         public int QuantidadeDisponivel { get; set; }
         public Guid MidiaId { get; set; }
+        public int TipoDeProduto { get; set; }
+        
 
         //---> Propriedade de navegação
         //
         public Midia Midia { get; set; }
+        
     }
 }

@@ -25,7 +25,10 @@ namespace Locadora.Application.ViewModels
         
         [Required(ErrorMessage = "O campo {0} deve ser preenchido")]
         public Guid MidiaId { get; set; }
-        
+
+        [Required(ErrorMessage = "O campo {0} deve ser preenchido")]
+        public int TipoDeProduto { get; set; }
+
         public Boolean Ativo { get; set; }
     }
 }

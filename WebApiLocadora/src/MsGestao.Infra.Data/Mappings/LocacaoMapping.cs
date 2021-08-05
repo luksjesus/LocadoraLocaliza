@@ -14,7 +14,7 @@ namespace Locadora.Infra.Data.Mappings
             builder.Property(p => p.DataCadastro)
                 .IsRequired();
 
-            builder.Property(p => p.ValorTotal)
+            builder.Property(p => p.Valor)
                 .IsRequired();
 
             builder.Property(p => p.Status)
