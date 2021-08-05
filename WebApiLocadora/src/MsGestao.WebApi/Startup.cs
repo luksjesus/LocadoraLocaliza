@@ -34,22 +34,14 @@ namespace Locadora.WebApi
                 options.SuppressModelStateInvalidFilter = true;
             });
 
-            //---> Incluindo o serviço CORS
-            //
             services.AddCors();
 
-            // ---> Incluindo configurações do Identity
-            //
             services.AddIdentityConfiguration(Configuration);
 
-            //---> Padrão web api e usando Pascal case
-            //
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore          
             );
 
-            //---> Adicionando AutoMapper
-            //
             MapperConfiguration _mapperConfiguration = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new AutoMapperProfile());
@@ -68,8 +60,6 @@ namespace Locadora.WebApi
             SimpleInjectionBootstrapper.Register(services);           
         }
 
-        //---> This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        //
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
           
@@ -83,38 +73,20 @@ namespace Locadora.WebApi
 
             app.UseRouting();
 
-            //---> Configura o CORS
-            //
-            //app.UseCors(opt => opt.WithOrigins("http://localhost:8080", "http://localhost:50214")
-            //.WithMethods("GET", "POST", "DELETE")
-            //);                                
+                                  
             app.UseCors(opt => opt.AllowAnyOrigin()
                                     .AllowAnyMethod()
                                     .AllowAnyHeader());
-
-            //---> habilita a autenticação.
-            //
+      
             app.UseAuthentication();
 
-            //---> middleware que habilita a autorização
-            //
-            //app.UseAuthorization();
-
-            //---> Adiciona os middleware que executa os end points
-            //
+     
             app.UseEndpoints(endpoints =>
             {
-                //---> adiciona os end points para as actions dos controladores
-                //---> sem especificar rotas
-                //
                 endpoints.MapControllers();
             });
 
-            app.UseWelcomePage();
-
-            //---> Always verify the container
-            //
-            //_containerIoC.Verify();
+            app.UseWelcomePage();            
         }
     }
 }

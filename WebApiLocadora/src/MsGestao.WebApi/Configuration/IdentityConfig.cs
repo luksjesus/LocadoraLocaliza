@@ -29,8 +29,7 @@ namespace Locadora.WebApi.Configuration
             services.AddIdentity<IdentityUser, IdentityRole>(options => {
                 options.Password.RequireDigit = true;
                 options.Password.RequireNonAlphanumeric = true;
-                // options.Password.RequireUppercase = true;
-                // options.Password.RequireLowercase = true;
+               
                 options.User.RequireUniqueEmail = true;
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._ @";
                 options.Password.RequiredLength = 6;
@@ -44,58 +43,25 @@ namespace Locadora.WebApi.Configuration
 
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
-
-            //JWT
-            //adiciona o manipulador de autenticacao e define o 
-            //esquema de autenticacao usado : Bearer
-            //valida o emissor, a audiencia e a chave
-            //usando a chave secreta valida a assinatura
+           
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
-                x.RequireHttpsMetadata = false;
-                // x.SaveToken = true;
+                x.RequireHttpsMetadata = false;                
                 x.SaveToken = false;
                 x.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    // ValidateIssuer = true,
-                    ValidateIssuer = false,
-                    // ValidateAudience = true,
-                    ValidateAudience = false,
-                    // ValidAudience = appSettings.ValidoEm,
-                    // ValidIssuer = appSettings.Emissor
+                    IssuerSigningKey = new SymmetricSecurityKey(key),                    
+                    ValidateIssuer = false,                      
+                    ValidateAudience = false,                 
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 };
             });
-
-            
-            /*
-            services.AddAuthentication(
-                JwtBearerDefaults.AuthenticationScheme).
-                AddJwtBearer(options =>
-                 options.TokenValidationParameters = new TokenValidationParameters
-                 {
-                     ValidateIssuer = true,
-                     ValidateAudience = true,
-                     ValidateLifetime = true,
-                     ValidAudience = configuration["TokenConfiguration:Audience"],
-                     ValidIssuer = configuration["TokenConfiguration:Issuer"],
-                     ValidateIssuerSigningKey = true,
-                     IssuerSigningKey = new SymmetricSecurityKey(
-                         Encoding.UTF8.GetBytes(configuration["Jwt:key"]))
-                 });
-                */
-
-            //services.AddDefaultIdentity<IdentityUser>()
-            //    .AddRoles<IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>()
-            //    .AddDefaultTokenProviders();
 
             return services;
         }

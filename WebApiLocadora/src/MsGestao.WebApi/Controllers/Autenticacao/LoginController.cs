@@ -1,10 +1,5 @@
-﻿//using Locadora.Application.ViewModels.Autenticacao;
-//using Locadora.Domain.Interfaces.Notificador;
-using Locadora.Domain.Notificador;
-//using Locadora.Application.ViewModels.Autenticacao;
-//using Locadora.Domain.Interfaces.Notificador;
+﻿using Locadora.Domain.Notificador;
 using Locadora.Application.ViewModels.Autenticacao;
-//using Locadora.Domain.Interfaces.Notificador;
 using Locadora.WebApi.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,16 +17,15 @@ using System.Threading.Tasks;
 
 namespace Locadora.WebApi.Controllers.Autenticacao
 {
-    //[Authorize(AuthenticationSchemes = "Bearer")]
     [Route("Autorizacao/[controller]")]
     [ApiController]
-    public class AuthController : MainController
+    public class LoginController : MainController
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signManager;
         private readonly AppSettings _appSettings;
 
-        public AuthController(INotificador notificador,
+        public LoginController(INotificador notificador,
                               SignInManager<IdentityUser> signManager,
                               UserManager<IdentityUser> userManager,
                               IOptions<AppSettings> appSetings) : base(notificador)
@@ -40,128 +34,7 @@ namespace Locadora.WebApi.Controllers.Autenticacao
             _userManager = userManager;
             _appSettings = appSetings.Value;
         }
-
-        /*
-        [HttpPost("AlterarSenha")]
-        public async Task<ActionResult> AlterarSenha([FromBody] AlteraSenhaUsuarioViewModel usuario) 
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            var findUser = await _userManager.FindByEmailAsync(usuario.Email);
-            var result = await _userManager.ChangePasswordAsync(findUser, usuario.Password, usuario.NewPassword);
-
-            if (result.Succeeded)
-            {
-                //var resultado = Login(new LoginUserViewModel() {
-                //    Email = usuario.Email,
-                //    Password = usuario.NewPassword
-                //});
-
-                return CustomResponse();
-            } 
-            else
-            {
-                foreach (var error in result.Errors)
-                {
-                    NotificarErro(error.Description);
-                }
-
-                return CustomResponse(usuario);
-            }
-        }
-        */
-
-        [HttpPost("GravarUsuario")]
-        public async Task<ActionResult> GravarUsuario([FromBody]UserViewModel userViewModel)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            IdentityResult result;
-            var findUser = await _userManager.FindByEmailAsync(userViewModel.Email);
-
-            if (findUser == null)
-            {
-                var user = new IdentityUser
-                {
-                    UserName = userViewModel.UserName,
-                    Email = userViewModel.Email,
-                    EmailConfirmed = true,
-                };
-
-                result = await _userManager.CreateAsync(user, userViewModel.Password);
-            } else {
-                findUser.UserName = userViewModel.UserName;
-                findUser.Email = userViewModel.Email;
-                findUser.EmailConfirmed = true;
-
-                result = await _userManager.UpdateAsync(findUser);
-
-                
-            }
-
-            if (result.Succeeded)
-            {
-                return CustomResponse(userViewModel);
-            } 
-            else 
-            { 
-                foreach (var error in result.Errors)
-                {
-                    NotificarErro(error.Description);
-                }
-
-                return CustomResponse(userViewModel);
-            }
-        }
-
-        [HttpPost("GravarPermissoes")]
-        public async Task<ActionResult> GravarPermissoes([FromBody] UserViewModelClaims userViewModel)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            IdentityResult result;
-            var findUser = await _userManager.FindByEmailAsync(userViewModel.Email);
-
-            if (findUser != null)
-            {
-                //---> pega as claims do usuario
-                //
-                var claims = await _userManager.GetClaimsAsync(findUser);
-
-                foreach (var claim in claims)
-                {
-                    result = await _userManager.RemoveClaimAsync(findUser, new Claim(claim.Type, claim.Value));
-                };
-
-                foreach (var claim in userViewModel.Claims.Where(c => c.Type != null)) 
-                {
-                    //try
-                    //{
-                    result = await _userManager.AddClaimAsync(findUser, new Claim(claim.Type, claim.Value));
-                    //}
-                    //catch (Exception e)
-                    //{
-                    //    NotificarErro(e.Message);
-                    //}
-                    // await _userManager.RemoveClaimAsync(findUser, new Claim(claim.Type, claim.Value));
-
-
-                    if (!result.Succeeded) 
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            NotificarErro(error.Description);
-                        }
-                    }
-                };                   
-            } 
-            else 
-            {
-                NotificarErro("O usuário não encontrado!!");
-            }
-
-            return CustomResponse();
-        }
+        
 
         [AllowAnonymous]
         [HttpPost("login")]
@@ -200,8 +73,6 @@ namespace Locadora.WebApi.Controllers.Autenticacao
 
         private async Task<LoginResponseViewModel> GerarJWT(string email)
         {
-            //---> pega o usuario pelo email
-            //
             var user = await _userManager.FindByEmailAsync(email);
 
             List<Claim> claimsGeneral = new List<Claim> { 
@@ -233,8 +104,6 @@ namespace Locadora.WebApi.Controllers.Autenticacao
 
             var encodedToken = tokenHandle.WriteToken(token);
 
-            //---> pega as claims do usuario
-            //
             var claims = await _userManager.GetClaimsAsync(user);
 
             var response = new LoginResponseViewModel
@@ -272,28 +141,7 @@ namespace Locadora.WebApi.Controllers.Autenticacao
             };
 
             return userAux;
-        }
-
-        [HttpGet("GetAll")]
-        public async Task<List<UserTokenViewModel>> GetAll()
-        {
-            List<UserTokenViewModel> listUser = new List<UserTokenViewModel>();
-            var _users = await _userManager.Users.ToListAsync();
-
-            foreach (var user in _users) {
-                var userAux = new UserTokenViewModel()
-                {
-                    Id = user.Id,
-                    Email = user.Email,
-                    UserName = user.UserName
-                };
-
-                listUser.Add(userAux);
-            }
-            return listUser;
-        }
-
-        
+        }       
 
     }
 }
