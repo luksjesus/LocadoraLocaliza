@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Locadora.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -16,6 +17,7 @@ namespace Locadora.Application.ViewModels
 
         [Required(ErrorMessage = "O campo {0} deve ser preenchido")]
         public DateTime DataPrevisaoEntrega { get; set; }
+
         public DateTime DataEntrega { get; set; }
 
         [Range(0, Double.PositiveInfinity, ErrorMessage = "Valor total da locação deve ser maior que 0")]
@@ -25,7 +27,7 @@ namespace Locadora.Application.ViewModels
         public Double Multa { get; set; }
 
         [Range(10, 30, ErrorMessage = "O status da venda é invalido")]
-        public int Status { get; set; }
+        public StatusDaVenda StatusDaVenda { get; set; }
 
         [Required(ErrorMessage = "O campo {0} deve ser preenchido")]
         public Guid ClienteId { get; set; }
@@ -33,6 +35,7 @@ namespace Locadora.Application.ViewModels
         public Boolean Ativo { get; set; }
 
         public ICollection<ItemLocacaoViewModel> Itens { get; set; }
+
         public ClienteViewModel Cliente { get; set; }
     }
 }

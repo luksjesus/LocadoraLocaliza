@@ -1,4 +1,5 @@
-﻿using Locadora.Domain.Models;
+﻿using Locadora.Domain.Enum;
+using Locadora.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -19,6 +20,11 @@ namespace Locadora.Infra.Data.Mappings
                 .IsRequired();
 
             builder.Property(p => p.MidiaId)
+                .IsRequired();
+
+            builder.Property(p => p.TipoDeProduto)
+                .HasConversion<int>()
+                .HasDefaultValue(TipoDeProduto.Filme)
                 .IsRequired();
         }
     }

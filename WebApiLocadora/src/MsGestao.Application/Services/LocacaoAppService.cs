@@ -7,6 +7,7 @@ using Locadora.Infra.Data.Context;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Locadora.Domain.Enum;
 
 namespace Locadora.Application.Services
 {
@@ -26,6 +27,11 @@ namespace Locadora.Application.Services
             _LocacaoService = LocacaoService;
             _mapper = mapper;
             _context = context;
+        }
+
+        public async Task<IEnumerable<LocacaoViewModel>> GetByIdCliente(Guid ClienteId)
+        {
+            return _mapper.Map<IEnumerable<LocacaoViewModel>>(await _LocacaoRepository.GetByIdCliente(ClienteId));
         }
 
         public async Task<LocacaoViewModel> GetById(Guid id)
@@ -81,5 +87,38 @@ namespace Locadora.Application.Services
         {
             _LocacaoService.Dispose();
         }
+
+        public async Task<LocacaoViewModel> CalcularTotalPraPagamento(Guid LocacaoId, DateTime DataEntrega)
+        {
+            var locacao = await _LocacaoRepository.GetById(LocacaoId);
+            locacao.DataEntrega = DataEntrega;
+            
+            var numeroDeDiasEmAtraso = (int)DataEntrega.Subtract(locacao.DataPrevisaoEntrega).TotalDays;
+
+            foreach (var item in locacao.Itens)
+            {
+                locacao.Valor += item.Produto.Valor;
+
+                if (numeroDeDiasEmAtraso > 0)
+                {
+                    if (item.Produto.TipoDeProduto == TipoDeProduto.Jogo) 
+                    {
+                        locacao.Multa += this.calculaMulta(numeroDeDiasEmAtraso, item.Produto.Valor, 100);
+                    } 
+                    else 
+                    {
+                        locacao.Multa += this.calculaMulta(numeroDeDiasEmAtraso, item.Produto.Valor, item.Produto.Midia.Multa);
+                    }
+                }
+            }
+
+            return _mapper.Map<LocacaoViewModel>(locacao);
+        }
+
+        private double calculaMulta(int numeroDePeriodos, double valorOriginal, double taxa)
+        {
+            return (((taxa / 100) * numeroDePeriodos) * valorOriginal);            
+        }
     }
 }
+

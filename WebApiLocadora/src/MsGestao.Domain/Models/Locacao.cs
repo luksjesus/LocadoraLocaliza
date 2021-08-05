@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Locadora.Domain.Enum;
+using System;
 using System.Collections.Generic;
 
 namespace Locadora.Domain.Models
@@ -11,7 +12,7 @@ namespace Locadora.Domain.Models
         public DateTime DataEntrega { get; set; }
         public Double Valor { get; set; }
         public Double Multa { get; set; }
-        public int Status { get; set; }
+        public StatusDaVenda StatusDaVenda { get; set; }
         public Guid ClienteId { get; set; }
 
         //---> Propriedade de navegação

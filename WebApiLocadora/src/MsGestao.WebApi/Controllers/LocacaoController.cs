@@ -32,6 +32,18 @@ namespace Locadora.Api.Controllers
             return await _LocacaoAppService.GetById(Id);
         }
 
+        [HttpGet("GetByIdCliente/{Id:Guid}")]
+        public async Task<IEnumerable<LocacaoViewModel>> GetByIdCliente(Guid ClienteId)
+        {
+            return await _LocacaoAppService.GetByIdCliente(ClienteId);
+        }
+
+        [HttpGet("CalcularTotalPraPagamento/{LocacaoId:Guid}/{DataEntrega}")]
+        public async Task<LocacaoViewModel> CalcularTotalPraPagamento(Guid LocacaoId, DateTime DataEntrega)
+        {
+            return await _LocacaoAppService.CalcularTotalPraPagamento(LocacaoId, DataEntrega);
+        }
+
         [HttpPost("Add")]
         public async Task<IActionResult> Add(LocacaoViewModel Locacao)
         {

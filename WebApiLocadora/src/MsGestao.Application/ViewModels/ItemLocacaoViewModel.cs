@@ -14,5 +14,7 @@ namespace Locadora.Application.ViewModels
         public Guid ProdutoId { get; set; }
        
         public Boolean Ativo { get; set; }
+
+        public ProdutoViewModel Produto;
     }
 }

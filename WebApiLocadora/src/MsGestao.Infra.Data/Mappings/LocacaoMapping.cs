@@ -17,10 +17,7 @@ namespace Locadora.Infra.Data.Mappings
             builder.Property(p => p.Valor)
                 .IsRequired();
 
-            builder.Property(p => p.Status)
-                .IsRequired();
-
-            builder.Property(p => p.Status)
+            builder.Property(p => p.StatusDaVenda)
                 .HasConversion<int>()
                 .HasDefaultValue(StatusDaVenda.AguardandoLiberacao)
                 .IsRequired();

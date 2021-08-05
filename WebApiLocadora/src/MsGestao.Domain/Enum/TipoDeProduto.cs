@@ -2,7 +2,7 @@
 {
     public enum TipoDeProduto : int
     {
-        Jogo = 10,
-        Filme = 20,
+        Jogo = 1,
+        Filme = 2,
     }
 }

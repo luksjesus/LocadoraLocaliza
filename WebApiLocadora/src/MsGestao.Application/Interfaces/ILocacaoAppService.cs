@@ -13,6 +13,8 @@ namespace Locadora.Application.Interfaces
 
         Task<LocacaoViewModel> GetById(Guid id);
         Task<LocacaoViewModel> GetByIdNoTracking(Guid id);
+        Task<LocacaoViewModel> CalcularTotalPraPagamento(Guid LocacaoId, DateTime DataEntrega);
         Task<IEnumerable<LocacaoViewModel>> GetAll();
+        Task<IEnumerable<LocacaoViewModel>> GetByIdCliente(Guid ClienteId);
     }
 }
